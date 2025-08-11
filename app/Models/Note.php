@@ -27,7 +27,7 @@ class Note extends Model
     }
     public function getPublicUrlAttribute()
     {
-        // return route('public.notes.show', $this);
+        return route('public.notes.show', $this);
     }
     
     public function isOwnedBy($user)

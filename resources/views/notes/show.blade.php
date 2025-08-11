@@ -44,7 +44,7 @@
                     @if ($note->isOwnedBy(auth()->user()))
                         <div class="card-footer">
                             <div class="btn-group">
-                                <a href="{{ route('notes.edit', $note) }}" class="btn btn-warning">Edit</a>
+                                <a href="{{ route('notes.edit', $note) }}" class="btn btn-warning mr-2">Edit</a>
 
                                 <form action="{{ route('notes.destroy', $note) }}" method="POST" class="d-inline"
                                     onsubmit="return confirm('Are you sure?')">
@@ -139,7 +139,6 @@
                                     {{ $note->is_public ? 'Make Private' : 'Make Public' }}
                                 </button>
                             </form>
-
                             @if ($note->is_public)
                                 <div class="mt-2">
                                     <label class="form-label">Public URL:</label>
@@ -178,7 +177,7 @@
         </div>
     </div>
 @endsection
-@section('scripts')
+@push('js')
 <script>
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(function() {
@@ -186,4 +185,4 @@
         });
     }
 </script>
-@endsection
+@endpush
