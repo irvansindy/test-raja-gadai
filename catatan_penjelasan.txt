@@ -1,0 +1,46 @@
+1. Rancangan Struktur Database
+    - Untuk table sudah ada pada migrations yang telah dibuat.
+    - Users: Tabel standar untuk autentikasi pengguna.
+    - Notes: Menyimpan catatan dengan kolom is_public untuk menentukan visibilitas.
+    - Note_Shares: Tabel pivot untuk berbagi catatan ke user spesifik dengan level permission.
+    - Comments: Menyimpan komentar dengan relasi ke note dan user.
+    - Foreign Key Constraints: Memastikan integritas data dan cascade delete.
+    - Indexing: Primary key dan unique constraints untuk performa query.
+
+2. Flow Aplikasi
+    2.1. Autentikasi
+        - User Registration/Login → Laravel Sanctum/Session
+        - Middleware Authentication → Protect Routes
+        - User Dashboard → Display Personal Notes
+    2.2. Catatan
+        - Buat Catatan → Simpan di database dengan user_id
+        - Edit Catatan → Periksa kepemilikan/izin
+        - Hapus Catatan → Periksa kepemilikan + hapus komentar/bagikan secara bertahap
+        - Lihat Catatan → Periksa visibilitas (publik/berbagi/pemilik)
+    2.3. Berbagi Catatan
+        1. Bagikan ke Pengguna:
+            - Pilih catatan → Pilih pengguna → Atur tingkat izin
+            - Masukkan catatan ke tabel note_shares
+        2. Bagikan ke Publik:
+            - Perbarui note.is_public = true
+            - Catatan dapat diakses melalui URL publik
+    2.4. Komentar
+        - Pengguna melihat catatan bersama/publik
+        - Tambahkan komentar → Periksa izin
+        - Simpan komentar dengan user_id dan note_id
+        - Tampilkan komentar secara kronologis
+
+3. Liblary/Plugin yang Digunakan
+    3.1. Laravel
+        - Laravel Framework: Kerangka kerja utama untuk pengembangan aplikasi.
+        - Laravel UI: Autentikasi API sederhana.
+        - Laravel Blade: Template engine untuk tampilan.
+        - Laravel Validation: Validasi input pengguna.
+        - Laravel Middleware: Untuk autentikasi dan otorisasi.
+    3.2. Database
+        - PostgreSQL: Database relasional untuk menyimpan data.
+        - Laravel Migrations: Untuk manajemen skema database.
+        - Laravel Eloquent: ORM untuk interaksi database.
+    3.3. Frontend
+        - Bootstrap: Framework CSS untuk desain responsif.
+        - jQuery: Untuk interaksi dinamis di frontend.
