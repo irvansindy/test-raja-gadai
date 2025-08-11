@@ -42,4 +42,16 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
+    public function sharedNotes()
+    {
+        return $this->belongsToMany(Note::class, 'note_shares', 'shared_with_user_id', 'note_id')->withPivot('permission')->withTimestamps();
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
